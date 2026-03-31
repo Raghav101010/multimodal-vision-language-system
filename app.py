@@ -22,14 +22,18 @@ config = {
 
 models = load_models()
 
-def caption_fn(image):
-    return generate_caption(image, models, tokenizer)
-
+def caption_fn(image, Decoding):
+    if Decoding == "Greedy":
+        return generate_caption(image, models, beam=False)
+    else:
+        return generate_caption(image, models, beam=True)
+    
 demo = gr.Interface(
     fn=caption_fn,
-    inputs=gr.Image(type="pil"),
+    inputs=[gr.Image(type="pil"),
+            gr.Radio(["Greedy", "Beam"], value="Beam")],
     outputs="text",
-    title="Image Captioning System"
+    title="Multimodal Vision-Language System (Image Captioning)"
 )
 
 demo.launch()
