@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+my_env/
+venv/
+.env/
+
+# Data
+data/
+!data/.gitkeep
+*.csv
+*.json
+
+# Model weights (future)
+*.pt
+*.pth
+checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Temporary files
+*.tmp
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Images
+images/
+
+# Logs
+*.log
