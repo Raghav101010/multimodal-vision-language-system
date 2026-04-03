@@ -62,10 +62,18 @@ def load_models():
 
 def generate_caption(image_input, models, beam=True):
 
-    if isinstance(image_input, str):
-        image = load_image_from_path(image_input)
+    device = next(models["encoder"].parameters()).device
+
+    if isinstance(image_input, torch.Tensor):
+        # Already preprocessed (from DataLoader)
+        image = image_input.to(device)
+
+    elif isinstance(image_input, str):
+        image = load_image_from_path(image_input).to(device)
+
     else:
-        image = preprocess_pil(image_input)
+        # PIL Image
+        image = preprocess_pil(image_input).to(device)
 
     if beam:
         return beam_search(image, models)
@@ -153,7 +161,7 @@ def beam_search(image_tensor, models, beam_width=3, max_len=30):
 
                 x = decoder_input(features, input_seq)
 
-                # 🔥 IMPORTANT (same as greedy)
+                # IMPORTANT (same as greedy)
                 x = x[:, 1:, :]
 
                 x = pos_enc(x)

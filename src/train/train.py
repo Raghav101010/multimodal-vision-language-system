@@ -82,7 +82,7 @@ no_improve_epochs = 0
 # ===== Training Loop =====
 for epoch in range(epochs):
 
-    print(f"\n🚀 Starting Epoch {epoch+1}")
+    print(f"\n Starting Epoch {epoch+1}")
     epoch_loss = 0
 
     for i, (images, captions) in enumerate(dataloader):
@@ -128,7 +128,7 @@ for epoch in range(epochs):
     scheduler.step()
 
     epoch_avg_loss = epoch_loss / len(dataloader)
-    print(f"📉 Epoch {epoch+1}, Avg Loss: {epoch_avg_loss:.4f}")
+    print(f" Epoch {epoch+1}, Avg Loss: {epoch_avg_loss:.4f}")
 
     # ===== Save LAST model =====
     torch.save({
@@ -156,16 +156,16 @@ for epoch in range(epochs):
             'idx2word': tokenizer.idx2word
         }, os.path.join(SAVE_DIR, "best_model.pth"))
 
-        print(f"✅ Best model saved at epoch {epoch+1}")
+        print(f" Best model saved at epoch {epoch+1}")
 
     else:
         no_improve_epochs += 1
-        print(f"⚠️ No improvement for {no_improve_epochs} epoch(s)")
+        print(f" No improvement for {no_improve_epochs} epoch(s)")
 
     # ===== Early Stopping =====
     if no_improve_epochs >= patience:
-        print("🛑 Early stopping triggered!")
+        print(" Early stopping triggered!")
         break
 
 
-print("\n🎯 Training Complete!")
+print("\n Training Complete!")
